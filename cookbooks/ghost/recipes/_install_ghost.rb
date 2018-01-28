@@ -11,6 +11,10 @@ bash 'install ghost-cli globally' do
   EOH
 end
 
+directory node['ghost']['homedir'] do
+  action :create
+end
+
 bash 'download and configure ghost' do
   cwd node['ghost']['homedir']
   code <<-EOH
