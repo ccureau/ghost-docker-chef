@@ -6,7 +6,8 @@
 
 bash 'install ghost-cli globally' do
   code <<-EOH
-    npm install -g ghost-cli
+    npm install -g yarn
+    yarn global add ghost-cli
   EOH
 end
 
