@@ -13,7 +13,13 @@ end
 
 user node['ghost']['user'] do
   home node['ghost']['homedir']
-  manage_home true
+  manage_home false
+  action :create
+end
+
+directory node['ghost']['homedir'] do
+  owner node['ghost']['user']
+  group node['ghost']['group']
   action :create
 end
 
