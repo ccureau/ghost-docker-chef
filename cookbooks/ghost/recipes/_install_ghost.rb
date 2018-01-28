@@ -9,7 +9,7 @@ user 'ghost' do
   home node['ghost']['homedir']
   manage_home true
   shell '/bin/false'
-  action :create, :lock
+  action :create
 end
 
 execute 'download ghost bundle' do
