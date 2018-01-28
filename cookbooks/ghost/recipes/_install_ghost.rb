@@ -4,28 +4,16 @@
 #
 # Copyright:: 2018, Chris Cureau, All Rights Reserved.
 
-user 'ghost' do
-  comment 'Ghost blog user'
-  home node['ghost']['homedir']
-  manage_home true
-  shell '/bin/false'
-  action :create
+execute 'install ghost-cli globally' do
+  command 'npm install -g ghost-cli'
 end
 
-execute 'download ghost bundle' do
-  command "curl -L -o /tmp/ghost-latest.zip #{node['ghost']['download_url']}"
-end
-
-bash 'unpack ghost' do
+execute 'download and configure ghost' do
   cwd node['ghost']['homedir']
-  code <<-EOH
-    unzip /tmp/ghost-latest.zip
-    chown -R #{node['ghost']['user']}:#{node['ghost']['group']} #{node['ghost']['homedir']}
-    rm -rf /tmp/ghost-latest.zip
-  EOH
+  command "ghost install --no-stack --no-start --no-setup --db mysql --dbhost #{node['mariadb']['host']} --dbuser #{node['mariadb']['user']} --dbpass #{node['mariadb']['pass']} --dbname #{node['mariadb']['database']} --url http://localhost:2368"
 end
 
-execute 'install dependencies for ghost' do
+execute 'ghost database migrations' do
   cwd node['ghost']['homedir']
-  command 'npm install --production'
+  command "#{node['ghost']['homedir']}/current/node_modules/.bin/knex-migrator-migrate --init --mgpath #{node['ghost']['homedir']}/current"
 end

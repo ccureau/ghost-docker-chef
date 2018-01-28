@@ -1,5 +1,5 @@
 [program:ghost]
-command = node <%= node['ghost']['homedir'] %>/index.js
+command = ghost run
 directory = <%= node['ghost']['homedir'] %>
 user = <%= node['ghost']['user'] %>
 autostart = true
