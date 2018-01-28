@@ -11,7 +11,9 @@ bash 'install ghost-cli globally' do
   EOH
 end
 
-directory node['ghost']['homedir'] do
+user node['ghost']['user'] do
+  home node['ghost']['homedir']
+  manage_home true
   action :create
 end
 
