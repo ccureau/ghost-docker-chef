@@ -1,0 +1,9 @@
+[program:ghost]
+command = node <%= node['ghost']['homedir'] %>/index.js
+directory = <%= node['ghost']['homedir'] %>
+user = <%= node['ghost']['user'] %>
+autostart = true
+autorestart = true
+redirect_stdout = true
+redirect_stderr = true
+environment = NODE_ENV="production"
