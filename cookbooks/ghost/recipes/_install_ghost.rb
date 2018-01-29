@@ -4,11 +4,16 @@
 #
 # Copyright:: 2018, Chris Cureau, All Rights Reserved.
 
+bash 'install yarn' do
+  code <<-EOH
+    npm install -g yarn
+  EOH
+end
+
 %w{ ghost-cli knex-migrator }.each do |mod|
   bash "install #{mod} globally" do
     code <<-EOH
-      npm install -g yarn
-      yarn global add ghost-cli
+      yarn global add #{mod}
     EOH
   end
 end
