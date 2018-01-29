@@ -32,7 +32,7 @@ end
 
 bash 'fix permissions' do
   code <<-EOH
-    chown #{node['mariadb']['user']}:#{node['mariadb']['group']} #{node['mariadb']['homedir']}/content
+    chown #{node['ghost']['user']}:#{node['ghost']['group']} #{node['ghost']['homedir']}/content
   EOH
 end
 
