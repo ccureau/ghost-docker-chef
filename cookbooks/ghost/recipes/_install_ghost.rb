@@ -26,7 +26,13 @@ end
 bash 'download and configure ghost' do
   cwd node['ghost']['homedir']
   code <<-EOH
-    ghost install --no-stack --no-start --no-setup --db mysql --dbhost #{node['mariadb']['host']} --dbuser #{node['mariadb']['user']} --dbpass #{node['mariadb']['pass']} --dbname #{node['mariadb']['database']} --url http://localhost:2368
+    ghost install --no-stack --no-start --no-setup --db mysql --dbhost #{node['mariadb']['host']} --dbuser #{node['mariadb']['user']} --dbpass #{node['mariadb']['pass']} --dbname #{node['mariadb']['database']} --url http://127.0.0.1:2368
+  EOH
+end
+
+bash 'fix permissions' do
+  code <<-EOH
+    chown #{node['mariadb']['user']}:#{node['mariadb']['group']} #{node['mariadb']['homedir']}/content
   EOH
 end
 
