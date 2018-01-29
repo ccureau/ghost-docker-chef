@@ -4,8 +4,8 @@
 #
 # Copyright:: 2018, Chris Cureau, All Rights Reserved.
 
-%w{ ghost-cli knex-migrator }.each do |module|
-  bash "install #{module} globally" do
+%w{ ghost-cli knex-migrator }.each do |mod|
+  bash "install #{mod} globally" do
     code <<-EOH
       npm install -g yarn
       yarn global add ghost-cli
